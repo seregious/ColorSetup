@@ -121,5 +121,31 @@ extension SlidersViewController: UITextFieldDelegate {
         alert.addAction(dismissButton)
         present(alert, animated: true)
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        let toolbar = UIToolbar()
+        
+        let doneButton = UIBarButtonItem(
+            title: "Done",
+            style: .done,
+            target: self,
+            action: #selector(didTapDone)
+        )
+        
+        let flexibleSpace = UIBarButtonItem(
+            barButtonSystemItem: .flexibleSpace,
+            target: nil,
+            action: nil
+        )
+        
+        toolbarItems = [flexibleSpace, doneButton]
+        
+        toolbar.sizeToFit()
+        textField.inputAccessoryView = toolbar
+    }
+    
+    @objc private func didTapDone() {
+        view.endEditing(true)
+    }
 }
 
